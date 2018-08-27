@@ -2,18 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brechó</title>
     <!-- Bootstrap core CSS -->
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Css -->
     <link href="../css/cadastrarProdutos.css" rel="stylesheet">
     <!-- JS -->
     <script src="../js/cadastrarProdutos.js"></script>
+
 </head>
 <body>
-
     <?php 
         //Iniciar a sessao
 	    session_start();
@@ -32,22 +31,22 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" method="POST" action="../php/editarProduto.php" enctype="multipart/form-data">
+                        <form id="login-form" class="form" method="POST" action="../php/cadastrarProdutos.php" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="username" class="text-info">Título do anúncio:</label><br>
-                                <input type="text" class="form-control" name="Nome" value="<?php pegarInformacaoAntesEditar("Nome") ?>">
+                                <input type="text" class="form-control" name="nomeProduto">
                             </div>
                             <div class="form-group">
                                 <label for="username" class="text-info">Descrição do anúncio</label><br>
-                                <input type="text" class="form-control" name="Descricao" value="<?php pegarInformacaoAntesEditar("Descricao") ?>">
+                                <input type="text" class="form-control" name="descricao">
                             </div>
                             <div class="form-group">
                                 <label for="username" class="text-info">Preço:</label><br>
-                                <input type="number" step="0.01" class="form-control" name="Preco" value="<?php pegarInformacaoAntesEditar("Preco") ?>">
+                                <input type="number" step="0.01" class="form-control" name="preco">
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1" class="text-info">Categoria:</label><br>
-                                <select class="form-control" id="exampleFormControlSelect1" name="Categoria">
+                                <select class="form-control" id="exampleFormControlSelect1" name="categoria">
                                     <option value="aulas">Aulas particulares</option>
                                     <option value="comidas">Comidas</option>
                                     <option value="eletronicos">Eletrônicos</option>
@@ -91,9 +90,7 @@
                                 <a class="botaoAdicionar" onclick="mostrarProxFoto();"><img src="../res/mais.png" width="42" height="42" border="0"></a>
                             </div>
                             <div class="form-group">
-                                <br><input type="submit" value="Criar Anuncio" name="Editar" class="btn btn-info btn-md">
-                                <!-- Enviar o ID do produto tambem mas nao mostrar (display:none) -->
-                                <input style="display:none;" type="text" name="produto" value="<?php pegarInformacaoAntesEditar("ID") ?>"><br>
+                                <br><input type="submit" value="Criar Anuncio" name="cadastrarProduto" class="btn btn-info btn-md">
                             </div>
                             <div id="register-link" class="text-right">
                                 <a href="/" class="text-info">Voltar</a><br>
@@ -112,16 +109,3 @@
 
 </body>
 </html>
-
-<?php
-    function pegarInformacaoAntesEditar($nomeColuna) {
-        include('../php/conexaoMysql.php');
-        $idProduto = $_GET['produto'];
-        $sql = "SELECT $nomeColuna FROM produtos WHERE ID = '$idProduto'";
-        $result = $conn->query($sql);
-        while($row = $result->fetch_assoc()) {
-            echo $row["$nomeColuna"];
-        }
-        $conn->close();
-    }
-?>
